@@ -1,0 +1,415 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="baidu_union_verify" content="2ab9c533091081cd2741a5efeffbc051">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>北京地铁涨价了</title>
+	<style>
+		body, html {width: 100%;height: 100%;overflow: hidden;hidden;margin:0;font-size:14px;}  
+		#main{
+			position: absolute;
+			top:0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: white;
+			vertical-align: middle;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+		  	-webkit-box-pack: center;
+		  	-webkit-box-align: center;
+			padding:0 10px;
+
+		}
+		#share{
+			position: fixed;
+			z-index: 999;
+			right:10px;
+			top:10px;
+			background: #007f35;
+			border-radius: 3px;
+			color:white;
+			padding:10px;
+		}
+		#share:before{
+			content:'';
+			display: block;
+			border-width:10px;
+			border-style:solid;
+			border-color: transparent transparent #007f35  transparent;
+			position: absolute;
+			top:-19px;
+			right:10px;
+		}
+		#searchBd, #resultBd{
+			width: 100%;
+			/*position: absolute;*/
+
+		}
+		label{
+			display: block;	
+			padding: 10px 0;
+			font-size: 1.2em;
+		}
+		label>span{
+			padding:0 0 10px 0;
+			display: block;
+			color:silver;
+		}
+		input[type="text"],button{
+			border:1px solid silver;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			background: white;
+			height: 40px;
+			width:100%;
+			line-height: 40px;
+			padding:0;
+		}
+		input[type="text"]{
+			text-indent: 1em;
+		}
+		button{
+			font-size:1.2em;
+			background: #007f35;
+			color: white;
+		}
+		b{
+			color: #007f35;
+		}
+		#searchBd{
+			/*display: none;*/
+		}
+		#resultBd{
+			display: none;
+		}
+		.line_b{
+			/*display: -webkit-box;*/
+		}
+		.line_b h2
+		{
+			margin:0;
+			padding:10px 0;
+			border-left:3px solid #111;
+		}
+		table{
+			width: 100%;
+		}
+		table th,
+		table td{
+			text-align: left;
+			border-collapse: collapse;
+			padding:5px 0;
+			background: #f1f1f1;
+		}
+		table th{
+			border-top:3px solid #222;
+			
+		}
+		table tr th:nth-child(2n-1){
+			border-color: grey;
+			background: silver;
+		}
+		table tr td:nth-child(2n-1){
+			background: silver;
+		}
+		.line{
+			/*-webkit-box-flex: 1;*/
+			height:5px;
+			background: green;
+		}
+		.arrow{
+			border-width:10px;
+			border-color: transparent #007f35 transparent transparent;
+			position: absolute;
+			border-color:#007f35;
+
+		}
+	</style>
+	<!-- 请置于所有广告位代码之前 -->
+	<script type="text/javascript" src="http://dup.baidustatic.com/js/zm.js"></script>
+</head>
+<body>
+	<div id="share">
+		立马分享!
+	</div>
+	<!-- 广告位：北京地铁 -->
+	<div id="baidu_dup_992054"></div>
+	<script type="text/javascript">
+		(BAIDU_DUP=window.BAIDU_DUP||[]).push(['fillAsync','992054','baidu_dup_992054']);
+	</script>
+	<div id="main">
+		<!-- <div style="text-align:center;">
+			<img src="/subway.gif" style="max-width:90%;" alt="logo">
+			<img src="http://tp2.sinaimg.cn/2778292197/180/5662427355/0" alt="logo">
+		</div> -->
+		<!-- UJian Button BEGIN -->
+		<div class="ujian-hook"></div>
+		<script type="text/javascript">var ujian_config = {num:4,picSize:84,textHeight:45};</script>
+		<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1517969"></script>
+		<a href="http://www.ujian.cc" style="border:0;" target="_blank" rel="external"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;"></a>
+		<!-- UJian Button END -->
+		<div id="searchBd">
+			<p>亲,北京地铁要涨价了,看看你的上班出行成本吧!---注意:请输入地铁站点</p>
+			<label><span>起点:</span> <input type="text" id="from">
+				<input type="hidden" id="from_true">
+			</label>
+			<label><span>终点:</span> <input type="text" id="to">
+				<input type="hidden" id="to_true">
+			</label>
+			<label><button id="search">查 询</button></label>
+		</div>
+		<div id="resultBd">
+			<div class="result">
+				方案一: <b class="n1Price"></b>,所占人群比列: <b class="n1Rate"></b><br>
+				方案二: <b class="n2Price"></b>,所占人群比列: <b class="n2Rate"></b><br>
+				全程<b class="distance"></b>;
+				<p class="desc"></p>
+			</div>
+			<div style="text-align:center;">
+				<button id="redo">再查查</button>
+			</div>
+			<div class="line_b">
+				<h2>方案1: </h2>
+				<div class="table">
+					<table cellpadding="0" cellspacing="0">
+						<tr>
+							<th width="1" style="text-align:center;">里程<br>(公里)</th>
+							<th width="1">0-3</th>
+							<th width="1">3-6</th>
+							<th width="1">6-12</th>
+							<th width="1">12-18</th>
+							<th width="1">18-30</th>
+							<th width="1">30-42</th>
+							<th width="1">42-60</th>
+							<th width="1">60-78</th>
+							<th width="1">78-96</th>
+						</tr>
+						<tr>
+							<td style="text-align: center;">元/人次</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+							<td>5</td>
+							<td>6</td>
+							<td>7</td>
+							<td>8</td>
+							<td>9</td>
+							<td>10</td>
+						</tr>
+						<tr>
+							<td style="text-align:center;">乘客分布比列(%)</td>
+							<td>4.36</td>
+							<td>10.30</td>
+							<td>27.23</td>
+							<td>24.80</td>
+							<td>26.00</td>
+							<td>5.89</td>
+							<td>1.34</td>
+							<td>0.07</td>
+							<td>0.01</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="line_b">
+				<h2>方案2:</h2>
+				<div class="table">
+					<table cellpadding="0" cellspacing="0">
+						<tr>
+							<th width="1" style="text-align:center;">里程<br>(公里)</th>
+							<th width="1">0-6</th>
+							<th width="1">6-12</th>
+							<th width="1">12-22</th>
+							<th width="1">22-32</th>
+							<th width="1">32-52</th>
+							<th width="1">52-72</th>
+							<th width="1">72-92</th>
+						</tr>
+						<tr>
+							<td style="text-align: center;">元/人次</td>
+							<td>3</td>
+							<td>4</td>
+							<td>5</td>
+							<td>6</td>
+							<td>7</td>
+							<td>8</td>
+							<td>9</td>
+						</tr>
+						<tr>
+							<td style="text-align:center;">乘客分布比列(%)</td>
+							<td>14.66</td>
+							<td>27.23</td>
+							<td>37.26</td>
+							<td>15.19</td>
+							<td>5.42</td>
+							<td>0.23</td>
+							<td>0.01</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="" id="weixin" value="北京地铁马上要涨价,还不快看看自己需要花多少银子,看看自己属于什么比列人群">
+	<script type="text/javascript" src="http://api.map.baidu.com/api?ak=PTGFcGAyQumoqVC9I1lUsQd6&v=2.0"></script> 
+	<script src="http://libs.useso.com/js/zepto/1.1.3/zepto.min.js"></script>
+	<script>
+		(function(){
+			function getResult(dis){
+				dis  = parseFloat(dis || 0);
+				var n1Dis = [3,6,12,18,30,42,60,78,96];
+				var n1Price = [2,3,4,5,6,7,8,9,10];
+				var n1Rate = [4.36,10.30,27.23,24.80,26.00,5.89,1.34,0.07,0.01];
+				var n2Dis = [6,12,22,32,52,72,92];
+				var n2Price = [3,4,5,6,7,8,9];
+				var n2Rate = [14.66,27.23,37.26,15.19,5.42,0.23,0.01];
+				var obj = {n1:{},n2:{}};
+				n1:{
+					for (var x = 0 ; x < n1Dis.length ; x++) {
+						if (dis <= n1Dis[x]){
+							break n1;
+						}
+					}
+				}
+				obj.n1.index = x;
+				obj.n1.price = n1Price[x] || 10;
+				obj.n1.rate = n1Rate[x] || 0.01;
+				n2:{
+					for (var y = 0 ; y < n2Dis.length ; y++) {
+						if (dis <= n2Dis[y]){
+							break n2;
+						}
+					}
+				}
+				obj.n2.index = y;
+				obj.n2.price = n2Price[y] || 10;
+				obj.n2.rate = n2Rate[y] || 0.01;
+				return obj;
+			}
+			var map = new BMap.Map("l-map");
+			// map.centerAndZoom("北京",12);                   // 初始化地图,设置城市和地图级别。
+			// map.enableScrollWheelZoom();   //启用滚轮放大缩小，默认禁用
+			// map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+			var ac = new BMap.Autocomplete( //建立一个自动完成的对象
+			{
+				"input": "from",
+				"location": "北京"
+			});
+			var ac2 = new BMap.Autocomplete( //建立一个自动完成的对象
+			{
+				"input": "to",
+				"location": "北京"
+			});
+			$([ac, ac2]).on('confirm', function(e){
+				$('#' + e.target.Yc.input + '_true').val(e.item.value.business);
+			});
+			var searchComplete = function (results){
+				$('#search').prop('disabled', false);
+				if (transit.getStatus() != BMAP_STATUS_SUCCESS){
+					alert('查询失败,亲!请选择正确的地铁站!');
+					return ;
+				}
+
+				var plan = results.getPlan(0);
+				var  dis = plan.getDistance(true);  //获取距离
+				var  desc = plan.getDescription();  //获取距离
+				var res = getResult(dis);
+				$('.result .desc').html(desc);
+				$('.result .distance').html(dis + '公里');
+				$('.result .n1Price').text(res.n1.price + '元');
+				$('.result .n1Rate').text(res.n1.rate + '%');
+				$('.result .n2Price').text(res.n2.price + '元');
+				$('.result .n2Rate').text(res.n2.rate + '%');
+				descContent = '地铁涨价,求补助,本人的上班成本,方案1:' + res.n1.price + '元,所占人群比列: ' + res.n1.rate + '%;方案2:' + res.n2.price + '元,所占人群比列: ' + res.n2.rate + '%;你也快来看看吧!';
+				$('#searchBd').hide();
+				$('#resultBd').show();
+				// output += plan.getDuration(true) + "\n";  //获取时间
+			}
+			var transit = new BMap.TransitRoute("北京", {renderOptions: {selectFirstResult: true},
+					onSearchComplete: searchComplete,
+				});
+			$('#redo').on('click', function(){
+				$('#searchBd').show();
+				$('#resultBd').hide();
+			});
+			$('#search').on('click', function(e){
+				$(this).prop('disabled', true);
+				transit.search($('#from_true').val(),$('#to_true').val());
+			});
+		})();
+	</script>
+	<!-- <script type="text/javascript">
+	var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F317d1a2cf105ea4e0897f9fddbc4e238' type='text/javascript'%3E%3C/script%3E"));
+	</script> -->
+
+	<script type="text/javascript">
+	var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe57b58cbccd72d075e0a851d54172ca3' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+
+	<script>
+
+        var imgUrl = 'http://www.horen.cn/bjdt.jpeg';
+        var lineLink = 'http://www.horen.cn/subway/';
+        var descContent = "北京地铁马上要涨价,还不快看看自己需要花多少银子,看看自己属于什么比列人群;让老板给补助!";
+        var shareTitle = '北京地铁涨价-土豪查查上班价格';
+        var appid = 'wxc9937e3a66af6dc8';
+
+        function shareFriend() {
+            WeixinJSBridge.invoke('sendAppMessage',{
+                                    "appid": appid,
+                                    "img_url": imgUrl,
+                                    "img_width": "640",
+                                    "img_height": "640",
+                                    "link": lineLink,
+                                    "desc": descContent,
+                                    "title": shareTitle
+                                    }, function(res) {
+                                    _report('send_msg', res.err_msg);
+                                    })
+        }
+        function shareTimeline() {
+            WeixinJSBridge.invoke('shareTimeline',{
+                                    "img_url": imgUrl,
+                                    "img_width": "640",
+                                    "img_height": "640",
+                                    "link": lineLink,
+                                    "desc": descContent,
+                                    "title": shareTitle
+                                    }, function(res) {
+                                    _report('timeline', res.err_msg);
+                                    });
+        }
+        function shareWeibo() {
+            WeixinJSBridge.invoke('shareWeibo',{
+                                    "content": descContent,
+                                    "url": lineLink,
+                                    }, function(res) {
+                                    _report('weibo', res.err_msg);
+                                    });
+        }
+        // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+
+                // 发送给好友
+                WeixinJSBridge.on('menu:share:appmessage', function(argv){
+                    shareFriend();
+                    });
+
+                // 分享到朋友圈
+                WeixinJSBridge.on('menu:share:timeline', function(argv){
+                    shareTimeline();
+                    });
+
+                // 分享到微博
+                WeixinJSBridge.on('menu:share:weibo', function(argv){
+                    shareWeibo();
+                    });
+                }, false);
+    </script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- <meta name="ujianVerification" content="c6c074cf274fc42c36bad5e29ff7de85" /> -->
+  <meta name="ujianVerification" content="43d4c08e619726995d2115783781c4af" />
+  
+  <title>（转载）Linux管道命令 | 雲儿飘飘</title>
+  <meta name="author" content="luxueyan">
+  
+  <meta name="description" content="云飞,飞露,雲飞,雲霏,雲儿飘飘,云儿飘飘,excel,vba,office,word,js,css,html,html5,css3,jquery,h5,kissy,前端,模块化">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="（转载）Linux管道命令"/>
+  <meta property="og:site_name" content="雲儿飘飘"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="雲儿飘飘" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+<body>
+  <header id="header" class='normal_mode'>
+    <div class="inner"><div class="alignleft">
+  <h1><a href="/"><img class="logo" src="/css/img/logo.png"/>雲儿飘飘</a></h1>
+  <h2><a href="/">飞雪连天射白露--飞露</a></h2>
+</div>
+<nav id="main-nav">
+  <ul>
+    
+  	      <li><a href="/">博客</a></li>
+    
+  	      <li><a href="/archives">存档</a></li>
+    
+  	      <li><a href="/atom.xml">RSS</a></li>
+    
+  	      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+
+<div class="clearfix"></div></div>
+    <div class="assistant">
+      <div class="before"></div>
+      <div class="after"></div>
+    </div>
+  </header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-03-21T08:08:31.000Z">
+          <a href="/2014/03/21/mac-linux-1/">
+              Mar 21 2014
+          </a>
+        </time>
+      
+      
+  
+    <h1 class="title">（转载）Linux管道命令</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>那么一条复杂的Linux命令怎样构成呢？下面来介绍几个技巧。</p>
+<p>利用输入/输出重定向<br>在Linux命令行模式中，如果命令所需的输入不是来自键盘，而是来自指定的文件，这就是输入重定向。同理，命令的输出也可以不显示在屏幕上，而是写入到指定文件中，这就是输出重定向。</p>
+<p>接下来看看标准输入/输出重定向在构造一条Linux命令中的实际应用。<br><a id="more"></a></p>
+<p>##1.输入重定向和输出重定向<br>    wc aa.txt<br>    ls &gt; home.txt</p>
+<p>第一条命令将文件aa.txt作为wc命令的输入，统计出aa.txt的行数、单词数和字符数。第二条命令将ls命令的输出保存在一个名为home.txt的文件中。如果&gt;符号后边的文件已存在，那么这个文件将被重写。</p>
+<p>##2.同时使用输入和输出重定向<br><code>iconv -f gb18030 -t utf-8 new-aa.txt</code></p>
+<p>这条命令里同时用到了输入重定向（new-aa.txt）。aa.txt实际是一个gb18030编码的文件，而new-aa.txt则是将aa.txt的内容转换成utf-8格式的新文件。</p>
+<p>利用管道<br>利用Linux所提供的管道符“|”将两个命令隔开，管道符左边命令的输出就会作为管道符右边命令的输入。连续使用管道意味着第一个命令的输出会作为 第二个命令的输入，第二个命令的输出又会作为第三个命令的输入，依此类推。下面来看看管道是如何在构造一条Linux命令中得到应用的。</p>
+<p>##1.利用一个管道<br><code>rpm -qa|grep licq</code></p>
+<p>这条命令使用一个管道符“|”建立了一个管道。管道将rpm -qa命令的输出（包括系统中所有安装的RPM包）作为grep命令的输入，从而列出带有licq字符的RPM包来。</p>
+<p>##2.利用多个管道</p>
+<p><code>cat /etc/passwd | grep /bin/bash | wc -l</code></p>
+<p>这条命令使用了两个管道，利用第一个管道将cat命令（显示passwd文件的内容）的输出送给grep命令，grep命令找出含有“/bin /bash”的所有行；第二个管道将grep的输出送给wc命令，wc命令统计出输入中的行数。这个命令的功能在于找出系统中有多少个用户使用bash。</p>
+<p>利用命令替换<br>在Linux命令行模式下，当遇到一对“<code>” (上分割符)时，将首先执行“</code>”中间包含的命令，然后将其输出结果作为参数代入命令行中，这就是命令替换了。它类似于输入输出的重定向功能，但区别在于 命令替换是将一个命令的输出作为另外一个命令的参数。下面来看它的实际应用。</p>
+<h2 id="1-使用命令替换">1.使用命令替换</h2><p><code>touch `date +%Y%m%d%k%M%S`.txt</code></p>
+<p>该命令使用了一次命令替换，date +%Y%m%d%k%M%S命令将首先执行，它将按指定格式输出当前的时间。然后，这个时间将被作为touch命令的参数，其结果是建立了一个以当前时间为文件名的文件。</p>
+<p>##2.使用命令替换<br><code>kill `/sbin/pidof smbd` </code></p>
+<p>该命令将杀掉sshd的所有进程。这里用pidof这个命令给出进程号，因为kill是针对进程号进行操作的。两者通过命令替换，实现了只用一条命令就杀掉sshd所有进程的功能。</p>
+<p>综合应用<br>在理解和熟悉了前面的几个技巧后，将它们综合运用起来就是较高的技巧了。同时，一些常用的、且本身用法就比较复杂的Linux命令一定要熟练掌握。在 构造Linux命令中常常用到的一些基础的、重要的命令有grep、tr、sed、awk、find、cat和echo等，下面来看一些综合应用的例子。</p>
+<p>1.</p>
+<p><code>man ls | col -b &gt; ls.man.txt</code></p>
+<p>这条命令同时运用了输出重定向和管道两种技巧，作用是将ls的帮助信息转成一个可以直接阅读的文本文件。</p>
+<p>2.</p>
+<p><code>kill -9 `ps -ef | grep smbd | tr -s &#39; &#39; | awk -F&#39; &#39; &#39;{print $2}&#39;` </code></p>
+<p>这个例子的功能和上面的功能是一样的，不过它不依赖pidof命令，使用的是多数Unix类系统中都有的命令，适用于更多的系统环境。但是它看起来更复杂一些，使用了三个管道和一次命令替换，另外使用了grep、tr和awk三个与字符操作相关的命令。</p>
+<p>从前面的介绍可以看出，通过几种技巧的组合，Linux命令可以完成复杂的功能。除此之外，还可以将这些命令组织到一个脚本中来，加上函数、变量、判断和循环等功能，再加入一些编程思想，就是功能更强大的Shell脚本了。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/linux/">linux</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/linux/">linux</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <!-- JiaThis Button BEGIN -->
+    <div class="jiathis_style">
+        <span class="jiathis_txt">分享到：</span>
+        <a class="jiathis_button_icons_1"></a>
+        <a class="jiathis_button_icons_2"></a>
+        <a class="jiathis_button_icons_3"></a>
+        <a class="jiathis_button_icons_4"></a>
+        <a href="http://www.jiathis.com/share?uid=1517969" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+        <a class="jiathis_counter_style"></a>
+    </div>
+    <script type="text/javascript">
+      var jiathis_config = {data_track_clickback:'true'};
+    </script> 
+    <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1517969" charset="utf-8"></script>
+    <!-- JiaThis Button END -->
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+      <!-- Duoshuo Comment BEGIN -->
+<div class="ds-thread"></div>
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"yepp"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+</script>
+<!-- Duoshuo Comment END -->
+  
+</section>
+
+</div>
+      <div style="text-align:center;margin-top:20px;">
+        <!-- <script type="text/javascript">
+             document.write('<a style="display:none!important" id="tanx-a-mm_45225653_4376409_14644998"></a>');
+             tanx_s = document.createElement("script");
+             tanx_s.type = "text/javascript";
+             tanx_s.charset = "gbk";
+             tanx_s.id = "tanx-s-mm_45225653_4376409_14644998";
+             tanx_s.async = true;
+             tanx_s.src = "http://p.tanx.com/ex?i=mm_45225653_4376409_14644998";
+             tanx_h = document.getElementsByTagName("head")[0];
+             if(tanx_h)tanx_h.insertBefore(tanx_s,tanx_h.firstChild);
+        </script> -->
+        <!-- <a data-type="13" data-tmpl="600x100" data-tmplid="213" data-rd="1" data-style="2" data-border="1" href="#"></a> -->
+      </div>
+    </div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com.hk/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:hi.gitcafe.com">
+  </form>
+</div>
+
+
+  <div class="widget tag">
+    <h3 class="title">简介</h3>
+	<ul class="entry">
+		<li>佚名:飞露</li>
+		<li>地点:流沙帝都城</li>
+		<li>职业:Web前端工程师</li>
+        <li><script charset="Shift_JIS" src="http://chabudai.sakura.ne.jp/blogparts/honehoneclock/honehone_clock_tr.js"></script></li>
+	</ul>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2015/01/21/mac-bee-error/">Mac报警声音次数判断问题</a>
+      </li>
+    
+      <li>
+        <a href="/2014/12/21/mac-share-wifi/">mac共享热点遇到的问题</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/05/mac-iterm2/">iTerm2常用快捷键</a>
+      </li>
+    
+      <li>
+        <a href="/2014/06/30/snap-wave/">原创-用svg实现water wave的动态模拟效果</a>
+      </li>
+    
+      <li>
+        <a href="/2014/06/10/mac-linux-2/">linux tr命令简介</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Swift/">Swift</a><small>1</small></li>
+  
+    <li><a href="/categories/linux/">linux</a><small>2</small></li>
+  
+    <li><a href="/categories/macos/">macos</a><small>1</small></li>
+  
+    <li><a href="/categories/原创/">原创</a><small>1</small></li>
+  
+    <li><a href="/categories/学习/">学习</a><small>1</small></li>
+  
+    <li><a href="/categories/工具/">工具</a><small>4</small></li>
+  
+    <li><a href="/categories/系统/">系统</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  <iframe frameborder="0" scrolling="no" src="http://show.v.t.qq.com/index.php?c=show&a=index&n=luxueyan200888&w=300&h=552&fl=2&l=8&o=31&co=0" width="302" height="552"></iframe>
+
+  <div class="widget tag">
+	<h3 class="title">友情链接</h3>
+	<ul class="entry">
+		<li><a target="_blank" href="http://horen.cn/" title="my club">攻城老师</a></li>
+	</ul>
+</div>
+<!-- <div>
+	<a data-type="14" data-tmpl="300x300" data-tmplid="214" data-rd="1" data-style="2" data-border="1" href="#"></a>
+</div> -->
+<!-- UJian Button BEGIN -->
+<div class="ujian-hook"></div>
+<script type="text/javascript">var ujian_config = {num:12,lkrc:5,picSize:84,textHeight:45};</script>
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=1517969"></script>
+<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+<!-- UJian Button END -->
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 luxueyan
+  
+  
+    <a target="_blank" class="icon github" href="https://github.com/luxueyan2008">github</a>
+    <a target="_blank" href="http://weibo.com/3057479917/profile?topnav=1&amp;wvr=5&amp;user=1">weibo</a>
+    <a target="_blank" href="https://plus.google.com/">google+</a>
+  
+</div>
+<div class="clearfix"></div>
+<a href="http://webscan.360.cn/index/checkwebsite/url/hi.gitcafe.com"><img border="0" src="http://img.webscan.360.cn/status/pai/hash/9bf6d1719756ba84c6abb455e0c897ec"/></a>
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F317d1a2cf105ea4e0897f9fddbc4e238' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+    <script type="text/javascript">
+        (function(){
+
+            $(window).scroll(function(){
+
+                var scrollTop = $(window).scrollTop();
+                if ( scrollTop >200 ){
+                    $("#header").removeClass('normal_mode').addClass('top_mode');
+                } else{
+                    $("#header").removeClass('top_mode').addClass('normal_mode');
+                }
+
+            });
+
+        })();
+    </script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="/js/snow.js"></script><!--出自代.码.笔.记 www.198zone.com-->
+<!-- <script type="text/javascript" src="/lua.min.js"></script>
+<script type="text/javascript" src="/water.js"></script> -->
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+<!-- <script type="text/javascript">
+    (function(win,doc){
+        var s = doc.createElement("script"), h = doc.getElementsByTagName("head")[0];
+        if (!win.alimamatk_show) {
+            s.charset = "gbk";
+            s.async = true;
+            s.src = "http://a.alimama.cn/tkapi.js";
+            h.insertBefore(s, h.firstChild);
+        };
+        var o = {
+            pid: "mm_45225653_4376409_14652108",/*推广单元ID，用于区分不同的推广渠道*/
+            appkey: "",/*通过TOP平台申请的appkey，设置后引导成交会关联appkey*/
+            unid: ""/*自定义统计字段*/
+        };
+        win.alimamatk_onload = win.alimamatk_onload || [];
+        win.alimamatk_onload.push(o);
+    })(window,document);
+</script> -->
+
+
+
+
+
+</body>
+</html>
